@@ -1,0 +1,43 @@
+<?php 
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+
+$sourceItemsBySku = $objectManager->get('\Magento\InventoryApi\Api\GetSourceItemsBySkuInterface');
+$sourceRepository = $objectManager->get('\Magento\InventoryApi\Api\SourceRepositoryInterface');
+
+
+$sku = $product->getSku();
+
+$sourceItemList = $sourceItemsBySku->execute($sku);
+?>
+<h5>Click and Collect</h5>
+<?php
+foreach ($sourceItemList as $source) {
+    $sd = $source->getData();
+    
+    if ($sd['source_code']){
+        $sourceInfo = $sourceRepository->get($sd['source_code']);
+        ?>
+        <div class="cnc-location"><strong><?php echo $sourceInfo['name'];?></strong> <?php echo $sourceInfo['description'];?>
+        <?php if ($sd['quantity'] > 0){ ?>
+            <br/><strong><em style="color:green">In Stock</em></strong></div>
+        <?php } else { ?>
+            <br/><strong><em style="color:red">Out of stock</em></strong></div>
+        <?php } ?>
+        
+   <?php }
+   
+
+}
+
+
+
+?>
+<style>
+    .cnc-location{
+        float: left;
+        width: 50%;
+        margin: 15px 0;
+    }
+</style>
