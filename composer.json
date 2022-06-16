@@ -1,0 +1,20 @@
+{
+	"authors": [
+		{
+			"homepage": "https://marcwatts.com.au",
+			"name": "Marc Watts"
+		}
+	],
+	"autoload": {
+		"files": [
+			"registration.php"
+		],
+		"psr-4": {
+			"Marcwatts\\Rexstock\\": ""
+		}
+	},
+	"description": "Retail Express Helper Plugin for Magento 2",
+	"license": "proprietary",
+	"name": "marcwatts/rexstock",
+	"type": "magento2-module"
+}
