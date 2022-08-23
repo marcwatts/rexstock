@@ -49,7 +49,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     public function getRexId($sku){
         if ($this->rexattribute ==0){
-            return str_replace("POS-","",$sku);
+           /// return str_replace("POS-","",$sku);
+            return $sku !== null ? str_replace("POS-","",$sku) : $sku;
         }
         else{
             return $sku;
